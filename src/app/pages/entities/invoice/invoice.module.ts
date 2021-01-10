@@ -8,14 +8,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { filter, map } from 'rxjs/operators';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { InvoicePage } from './invoice';
 import { InvoiceUpdatePage } from './invoice-update';
 import { Invoice, InvoiceService, InvoiceDetailPage } from '.';
+import { PaymentPageComponent } from './payment-page/payment-page.component';
 
 @Injectable({ providedIn: 'root' })
 export class InvoiceResolve implements Resolve<Invoice> {
-  constructor(private service: InvoiceService) {}
+  constructor(private service: InvoiceService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Invoice> {
     const id = route.params.id ? route.params.id : null;
@@ -71,10 +73,22 @@ const routes: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+  {
+    path: ":id/pay",
+    component: PaymentPageComponent,
+    resolve: {
+      data: InvoiceResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 @NgModule({
-  declarations: [InvoicePage, InvoiceUpdatePage, InvoiceDetailPage],
+  declarations: [InvoicePage, InvoiceUpdatePage, InvoiceDetailPage, PaymentPageComponent],
   imports: [IonicModule, FormsModule, ReactiveFormsModule, CommonModule, TranslateModule, RouterModule.forChild(routes)],
 })
-export class InvoicePageModule {}
+export class InvoicePageModule { }

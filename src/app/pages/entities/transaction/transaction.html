@@ -19,7 +19,9 @@
     <ion-item-sliding *ngFor="let transaction of transactions; trackBy: trackId" #slidingItem>
       <ion-item (click)="view(transaction)">
         <ion-label text-wrap>
-          <ion-text color="primary"><h2>{{transaction.name}}</h2></ion-text>
+          <ion-text color="primary">
+            <h2>{{transaction.name}}</h2>
+          </ion-text>
           <p>{{transaction.uuid}}</p>
           <p>{{transaction.amount}}</p>
           <p>{{transaction.dateTime | date:'medium'}}</p>
@@ -42,9 +44,5 @@
     </ion-label>
   </ion-item>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="new()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
 </ion-content>

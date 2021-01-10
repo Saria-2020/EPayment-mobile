@@ -15,7 +15,7 @@ import { PaymentInfo, PaymentInfoService, PaymentInfoDetailPage } from '.';
 
 @Injectable({ providedIn: 'root' })
 export class PaymentInfoResolve implements Resolve<PaymentInfo> {
-  constructor(private service: PaymentInfoService) {}
+  constructor(private service: PaymentInfoService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PaymentInfo> {
     const id = route.params.id ? route.params.id : null;
@@ -77,4 +77,4 @@ const routes: Routes = [
   declarations: [PaymentInfoPage, PaymentInfoUpdatePage, PaymentInfoDetailPage],
   imports: [IonicModule, FormsModule, ReactiveFormsModule, CommonModule, TranslateModule, RouterModule.forChild(routes)],
 })
-export class PaymentInfoPageModule {}
+export class PaymentInfoPageModule { }

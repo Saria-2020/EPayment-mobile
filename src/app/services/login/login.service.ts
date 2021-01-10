@@ -11,10 +11,10 @@ export class LoginService {
     private accountService: AccountService,
     private authServerProvider: AuthServerProvider,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   login(credentials, callback?) {
-    const cb = callback || function () {};
+    const cb = callback || function () { };
 
     return new Promise((resolve, reject) => {
       this.authServerProvider.login(credentials).subscribe(
@@ -45,5 +45,6 @@ export class LoginService {
   logout() {
     this.authServerProvider.logout().subscribe();
     this.accountService.authenticate(null);
+    localStorage.clear()
   }
 }

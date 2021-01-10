@@ -4,6 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { Invoice } from './invoice.model';
 import { InvoiceService } from './invoice.service';
+import { Customer } from '../customer';
 
 @Component({
   selector: 'page-invoice',
@@ -28,8 +29,9 @@ export class InvoicePage {
   }
 
   async loadAll(refresher?) {
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
     this.invoiceService
-      .query()
+      .query({ "customerId.equals": customer.id })
       .pipe(
         filter((res: HttpResponse<Invoice[]>) => res.ok),
         map((res: HttpResponse<Invoice[]>) => res.body)

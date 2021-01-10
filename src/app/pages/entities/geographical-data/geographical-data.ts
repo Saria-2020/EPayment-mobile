@@ -4,6 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { GeographicalData } from './geographical-data.model';
 import { GeographicalDataService } from './geographical-data.service';
+import { Customer } from '../customer';
 
 @Component({
   selector: 'page-geographical-data',
@@ -28,8 +29,10 @@ export class GeographicalDataPage {
   }
 
   async loadAll(refresher?) {
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
+
     this.geographicalDataService
-      .query()
+      .query({ "customerId.equals": customer.id })
       .pipe(
         filter((res: HttpResponse<GeographicalData[]>) => res.ok),
         map((res: HttpResponse<GeographicalData[]>) => res.body)

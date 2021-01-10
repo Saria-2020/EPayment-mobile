@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      {{ 'WELCOME_TITLE' | translate }}, {{account?.firstName}}
+      <h6>Welcome, {{account?.firstName}}</h6>
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()" id="logout">
@@ -13,7 +13,25 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <p>{{ 'WELCOME_INTRO' | translate }}</p>
+  <ion-list>
+    <ion-item-sliding *ngFor="let invoice of invoices; trackBy: trackId" #slidingItem>
+      <ion-item>
+        <ion-label text-wrap>
+          <p>{{invoice.invoiceNumber}}</p>
+          <p>{{invoice.date | date:'medium'}}</p>
+          <p>{{invoice.verificationNumber}}</p>
+          <p>{{invoice.unitName}}</p>
+          <p>{{invoice.totalAmount}}</p>
+          <p>{{invoice.amountPaid}}</p>
+        </ion-label>
+        <ion-button (click)="view(invoice)">Pay</ion-button>
+      </ion-item>
 
-  <span class="hipster"></span>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-item *ngIf="!invoices?.length">
+    <ion-label>
+      No unpaid Invoices found.
+    </ion-label>
+  </ion-item>
 </ion-content>

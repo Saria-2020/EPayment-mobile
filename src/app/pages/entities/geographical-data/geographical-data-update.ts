@@ -61,6 +61,8 @@ export class GeographicalDataUpdatePage implements OnInit {
   }
 
   updateForm(geographicalData: GeographicalData) {
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
+
     this.form.patchValue({
       id: geographicalData.id,
       state: geographicalData.state,
@@ -70,7 +72,7 @@ export class GeographicalDataUpdatePage implements OnInit {
       realEstateNumber: geographicalData.realEstateNumber,
       activityNumber: geographicalData.activityNumber,
       areaOfTheRealEstate: geographicalData.areaOfTheRealEstate,
-      customer: geographicalData.customer,
+      customer: customer,
     });
   }
 
@@ -114,6 +116,8 @@ export class GeographicalDataUpdatePage implements OnInit {
   }
 
   private createFromForm(): GeographicalData {
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
+
     return {
       ...new GeographicalData(),
       id: this.form.get(['id']).value,
@@ -124,7 +128,7 @@ export class GeographicalDataUpdatePage implements OnInit {
       realEstateNumber: this.form.get(['realEstateNumber']).value,
       activityNumber: this.form.get(['activityNumber']).value,
       areaOfTheRealEstate: this.form.get(['areaOfTheRealEstate']).value,
-      customer: this.form.get(['customer']).value,
+      customer: customer
     };
   }
 

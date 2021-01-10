@@ -36,13 +36,8 @@
         <ion-input type="text" name="cardNumber" formControlName="cardNumber"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Customer</ion-label>
-        <ion-select id="field_customer" formControlName="customer" [compareWith]="compareCustomer">
-          <ion-select-option [value]="null"></ion-select-option>
-          <ion-select-option [value]="customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById"
-            >{{customerOption.phoneNumber}}</ion-select-option
-          >
-        </ion-select>
+        <ion-label position="floating">Balance</ion-label>
+        <ion-input type="text" name="balance" formControlName="balance"></ion-input>
       </ion-item>
     </ion-list>
   </form>

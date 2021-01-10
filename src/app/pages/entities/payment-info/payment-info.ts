@@ -4,6 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { PaymentInfo } from './payment-info.model';
 import { PaymentInfoService } from './payment-info.service';
+import { Customer } from '../customer';
 
 @Component({
   selector: 'page-payment-info',
@@ -28,8 +29,10 @@ export class PaymentInfoPage {
   }
 
   async loadAll(refresher?) {
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
+
     this.paymentInfoService
-      .query()
+      .query({ "customerId.equals": customer.id })
       .pipe(
         filter((res: HttpResponse<PaymentInfo[]>) => res.ok),
         map((res: HttpResponse<PaymentInfo[]>) => res.body)

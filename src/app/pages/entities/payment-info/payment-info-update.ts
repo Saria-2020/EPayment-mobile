@@ -24,7 +24,7 @@ export class PaymentInfoUpdatePage implements OnInit {
     name: [null, []],
     accountNumber: [null, []],
     cardNumber: [null, []],
-    customer: [null, []],
+    balance: []
   });
 
   constructor(
@@ -43,7 +43,9 @@ export class PaymentInfoUpdatePage implements OnInit {
   }
 
   ngOnInit() {
-    this.customerService.query().subscribe(
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
+
+    this.customerService.query({ "customerId.equals": customer.id }).subscribe(
       (data) => {
         this.customers = data.body;
       },
@@ -57,12 +59,15 @@ export class PaymentInfoUpdatePage implements OnInit {
   }
 
   updateForm(paymentInfo: PaymentInfo) {
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
+
     this.form.patchValue({
       id: paymentInfo.id,
       name: paymentInfo.name,
       accountNumber: paymentInfo.accountNumber,
       cardNumber: paymentInfo.cardNumber,
-      customer: paymentInfo.customer,
+      customer: customer,
+      balance: paymentInfo.balance
     });
   }
 
@@ -106,13 +111,16 @@ export class PaymentInfoUpdatePage implements OnInit {
   }
 
   private createFromForm(): PaymentInfo {
+    const customer: Customer = JSON.parse(localStorage.getItem('customer'))
+
     return {
       ...new PaymentInfo(),
       id: this.form.get(['id']).value,
       name: this.form.get(['name']).value,
       accountNumber: this.form.get(['accountNumber']).value,
       cardNumber: this.form.get(['cardNumber']).value,
-      customer: this.form.get(['customer']).value,
+      balance: this.form.get(['balance']).value,
+      customer: customer
     };
   }
 

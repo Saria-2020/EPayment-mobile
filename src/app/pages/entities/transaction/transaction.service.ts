@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { createRequestOption } from 'src/app/shared';
 import { Transaction } from './transaction.model';
+import { Invoice } from '../invoice';
+import { PaymentInfo } from '../payment-info';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
   private resourceUrl = ApiService.API_URL + '/transactions';
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) { }
 
   create(transaction: Transaction): Observable<HttpResponse<Transaction>> {
     return this.http.post<Transaction>(this.resourceUrl, transaction, { observe: 'response' });
@@ -30,5 +32,8 @@ export class TransactionService {
 
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+  makePayment(invoice: Invoice, paymentInfo: PaymentInfo): Observable<HttpResponse<Transaction>> {
+    return this.http.post<any>(ApiService.API_URL + '/make-payment', { invoice, paymentInfo })
   }
 }

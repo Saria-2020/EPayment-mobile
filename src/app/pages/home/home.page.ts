@@ -3,6 +3,8 @@ import { NavController } from '@ionic/angular';
 import { AccountService } from 'src/app/services/auth/account.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Account } from 'src/model/account.model';
+import { CustomerService } from '../entities/customer';
+import { Invoice, InvoiceService } from '../entities/invoice';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +13,8 @@ import { Account } from 'src/model/account.model';
 })
 export class HomePage implements OnInit {
   account: Account;
-
-  constructor(public navController: NavController, private accountService: AccountService, private loginService: LoginService) {}
+  invoices: Invoice[] = [];
+  constructor(public navController: NavController, private accountService: AccountService, private loginService: LoginService, private customerService: CustomerService, private invoiceService: InvoiceService) { }
 
   ngOnInit() {
     this.accountService.identity().then((account) => {
@@ -20,8 +22,11 @@ export class HomePage implements OnInit {
         this.goBackToHomePage();
       } else {
         this.account = account;
+        this.loadCustomerData(account);
+        this.loadInvoices()
       }
     });
+
   }
 
   isAuthenticated() {
@@ -33,7 +38,28 @@ export class HomePage implements OnInit {
     this.goBackToHomePage();
   }
 
+
   private goBackToHomePage(): void {
     this.navController.navigateBack('');
+  }
+  loadCustomerData(account: Account) {
+    this.customerService.find(account.id).subscribe(res => {
+      localStorage.setItem('customer', JSON.stringify(res.body))
+    })
+
+  }
+  loadInvoices() {
+    this.invoiceService.query({
+      "customerId.equals": this.account.id, "paid.equals": false
+    }).subscribe(res => {
+      this.invoices = res.body
+    })
+  }
+  view(invoice: Invoice) {
+    this.navController.navigateForward('/tabs/entities/invoice/' + invoice.id + '/pay');
+
+  }
+  trackId(index: number, item: Invoice) {
+    return item.id;
   }
 }

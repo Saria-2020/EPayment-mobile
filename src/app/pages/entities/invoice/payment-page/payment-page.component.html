@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Make Payment Page
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button [disabled]="!isReadyToSave" (click)="save()" color="primary">
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form name="paymentForm" [formGroup]="form" (ngSubmit)="save()">
+        <ion-list>
+            <ion-item>
+                <ion-label>Payment Info</ion-label>
+                <ion-select id="field_paymentInfo" formControlName="paymentInfo" [compareWith]="comparePaymentInfo">
+                    <ion-select-option [value]="null"></ion-select-option>
+                    <ion-select-option *ngFor="let paymentInfoOption of paymentInfos; trackBy: trackPaymentInfoById"
+                        [value]="paymentInfoOption">
+                        {{paymentInfoOption.name}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Invoice Number</ion-label>
+                <div item-content>
+                    <span>{{invoice.invoiceNumber}}</span>
+                </div>
+            </ion-item>
+            <ion-item>
+                <ion-label>Invoice Amount</ion-label>
+                <div item-content>
+                    <span>{{invoice.totalAmount}}</span>
+                </div>
+            </ion-item>
+        </ion-list>
+
+        <ion-button [disabled]="!isReadyToSave" (click)="save()">PAY</ion-button>
+    </form>
+</ion-content>
