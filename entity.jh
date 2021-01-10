@@ -1,0 +1,95 @@
+
+
+
+entity Customer {
+  phoneNumber String,
+  nationalId String
+}
+
+
+entity Invoice {
+ invoiceNumber String,
+ date Instant
+ verificationNumber String,
+ unitName String,
+ totalAmount Double,
+ amountPaid Double,
+ paid Boolean
+ // Transaction
+ // Customer
+}
+
+entity InvoiceItem {
+ name String,
+ amount Double
+ // Invoice
+}
+
+entity GeographicalData {
+ state String,
+ units String,
+ district String,
+ square String,
+ realEstateNumber String,
+ activityNumber String,
+ areaOfTheRealEstate String
+ // Customer
+ }
+
+ entity ActivityInformation {
+ name String,
+ sector String,
+ typeOfActivity String,
+ propertyType String,
+ areaClass String,
+ architectureType String,
+ numberOfFloors String,
+ features String,
+ descriptionOfTheFeatures TextBlob
+ // Category
+ // Customer
+ }
+
+ entity Category {
+ 	name String
+    description TextBlob
+ }
+
+ entity PaymentInfo {
+ 	name String,
+    accountNumber String,
+ 	cardNumber String,
+    // Customer
+ }
+
+ entity Transaction {
+    name String
+    uuid String
+    amount Double
+    dateTime Instant
+    paymentDetails String
+    // Invoice
+}
+
+relationship OneToOne {
+	Customer{user(login)} to User with jpaDerivedIdentifier
+    Invoice{transaction(name)} to Transaction{invoice(invoiceNumber)}
+}
+
+relationship OneToMany {
+	Customer{invoices(invoiceNumber)} to Invoice{customer(phoneNumber)}
+    Customer{activityInformation(name)} to ActivityInformation{customer(phoneNumber)}
+    Customer{GeographicalData(realEstateNumber)} to GeographicalData{customer(phoneNumber)}
+    Customer{accounts(name)} to PaymentInfo{customer(phoneNumber)}
+
+    Invoice{items(name)} to InvoiceItem{invoice(invoiceNumber)}
+
+    PaymentInfo{transactions(name)} to Transaction{paymentInfo(name)}
+
+    Category{activityInformation(name)} to ActivityInformation{category(name)}
+}
+
+paginate * with pagination
+service * with serviceClass
+filter *
+

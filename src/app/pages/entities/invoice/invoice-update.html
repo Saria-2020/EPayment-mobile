@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Invoice
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [disabled]="!isReadyToSave" (click)="save()" color="primary">
+        <span *ngIf="platform.is('ios')">{{'DONE_BUTTON' | translate}}</span>
+        <ion-icon name="checkmark" *ngIf="!platform.is('ios')"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form *ngIf="form" name="form" [formGroup]="form" (ngSubmit)="save()">
+    <ion-list>
+      <ion-item [hidden]="!form.id">
+        <ion-label>ID</ion-label>
+        <ion-input type="hidden" id="id" formControlName="id" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Invoice Number</ion-label>
+        <ion-input type="text" name="invoiceNumber" formControlName="invoiceNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" formControlName="date" id="field_date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Verification Number</ion-label>
+        <ion-input type="text" name="verificationNumber" formControlName="verificationNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Unit Name</ion-label>
+        <ion-input type="text" name="unitName" formControlName="unitName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Total Amount</ion-label>
+        <ion-input type="number" name="totalAmount" formControlName="totalAmount"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Amount Paid</ion-label>
+        <ion-input type="number" name="amountPaid" formControlName="amountPaid"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Paid</ion-label>
+        <ion-checkbox formControlName="paid"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Transaction</ion-label>
+        <ion-select id="field_transaction" formControlName="transaction" [compareWith]="compareTransaction">
+          <ion-select-option [value]="null"></ion-select-option>
+          <ion-select-option
+            [value]="transactionOption.id === invoice.transaction?.id ? invoice.transaction : transactionOption"
+            *ngFor="let transactionOption of transactions; trackBy: trackTransactionById"
+            >{{transactionOption.name}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Customer</ion-label>
+        <ion-select id="field_customer" formControlName="customer" [compareWith]="compareCustomer">
+          <ion-select-option [value]="null"></ion-select-option>
+          <ion-select-option [value]="customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById"
+            >{{customerOption.phoneNumber}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

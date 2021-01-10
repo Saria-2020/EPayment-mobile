@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Activity Information
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="fixed">Name</ion-label>
+      <div item-content>
+        <span>{{activityInformation.name}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Sector</ion-label>
+      <div item-content>
+        <span>{{activityInformation.sector}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Type Of Activity</ion-label>
+      <div item-content>
+        <span>{{activityInformation.typeOfActivity}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Property Type</ion-label>
+      <div item-content>
+        <span>{{activityInformation.propertyType}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Area Class</ion-label>
+      <div item-content>
+        <span>{{activityInformation.areaClass}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Architecture Type</ion-label>
+      <div item-content>
+        <span>{{activityInformation.architectureType}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Number Of Floors</ion-label>
+      <div item-content>
+        <span>{{activityInformation.numberOfFloors}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Features</ion-label>
+      <div item-content>
+        <span>{{activityInformation.features}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Description Of The Features</ion-label>
+      <div item-content>
+        <span>{{activityInformation.descriptionOfTheFeatures}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>Customer</ion-label>
+      <div item-content *ngIf="activityInformation.customer">
+        <a>{{activityInformation.customer?.phoneNumber}}</a>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <div item-content *ngIf="activityInformation.category">
+        <a>{{activityInformation.category?.name}}</a>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="primary" (click)="open(activityInformation)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+  <ion-button expand="block" color="danger" (click)="deleteModal(activityInformation)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+</ion-content>

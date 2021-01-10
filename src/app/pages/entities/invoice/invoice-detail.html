@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Invoice
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="fixed">Invoice Number</ion-label>
+      <div item-content>
+        <span>{{invoice.invoiceNumber}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Date</ion-label>
+      <div item-content>
+        <span>{{invoice.date | date:'medium'}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Verification Number</ion-label>
+      <div item-content>
+        <span>{{invoice.verificationNumber}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Unit Name</ion-label>
+      <div item-content>
+        <span>{{invoice.unitName}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Total Amount</ion-label>
+      <div item-content>
+        <span>{{invoice.totalAmount}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Amount Paid</ion-label>
+      <div item-content>
+        <span>{{invoice.amountPaid}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Paid</ion-label>
+      <div item-content>
+        <span>{{invoice.paid}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>Transaction</ion-label>
+      <div item-content *ngIf="invoice.transaction">
+        <a>{{invoice.transaction?.name}}</a>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>Customer</ion-label>
+      <div item-content *ngIf="invoice.customer">
+        <a>{{invoice.customer?.phoneNumber}}</a>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="primary" (click)="open(invoice)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+  <ion-button expand="block" color="danger" (click)="deleteModal(invoice)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+</ion-content>

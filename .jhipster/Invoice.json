@@ -1,0 +1,67 @@
+{
+  "name": "Invoice",
+  "fields": [
+    {
+      "fieldName": "invoiceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "verificationNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "unitName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "totalAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "amountPaid",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "paid",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "transaction",
+      "otherEntityRelationshipName": "invoice",
+      "relationshipName": "transaction",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "invoiceItem",
+      "otherEntityRelationshipName": "invoice",
+      "relationshipName": "items"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "customer",
+      "otherEntityRelationshipName": "invoices",
+      "relationshipName": "customer",
+      "otherEntityField": "phoneNumber"
+    }
+  ],
+  "changelogDate": "20210110075604",
+  "entityTableName": "invoice",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

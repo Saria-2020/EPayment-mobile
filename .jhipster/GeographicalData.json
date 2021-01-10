@@ -1,0 +1,53 @@
+{
+  "name": "GeographicalData",
+  "fields": [
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "units",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "district",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "square",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "realEstateNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "activityNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "areaOfTheRealEstate",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "customer",
+      "otherEntityRelationshipName": "geographicalData",
+      "relationshipName": "customer",
+      "otherEntityField": "phoneNumber"
+    }
+  ],
+  "changelogDate": "20210110075804",
+  "entityTableName": "geographical_data",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Payment Info
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="fixed">Name</ion-label>
+      <div item-content>
+        <span>{{paymentInfo.name}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Account Number</ion-label>
+      <div item-content>
+        <span>{{paymentInfo.accountNumber}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Card Number</ion-label>
+      <div item-content>
+        <span>{{paymentInfo.cardNumber}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>Customer</ion-label>
+      <div item-content *ngIf="paymentInfo.customer">
+        <a>{{paymentInfo.customer?.phoneNumber}}</a>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="primary" (click)="open(paymentInfo)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+  <ion-button expand="block" color="danger" (click)="deleteModal(paymentInfo)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+</ion-content>

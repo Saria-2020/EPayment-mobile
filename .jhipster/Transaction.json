@@ -1,0 +1,52 @@
+{
+  "name": "Transaction",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uuid",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "dateTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "paymentDetails",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "invoice",
+      "otherEntityRelationshipName": "transaction",
+      "relationshipName": "invoice",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "paymentInfo",
+      "otherEntityRelationshipName": "transactions",
+      "relationshipName": "paymentInfo",
+      "otherEntityField": "name"
+    }
+  ],
+  "changelogDate": "20210110080204",
+  "entityTableName": "transaction",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Geographical Data
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [disabled]="!isReadyToSave" (click)="save()" color="primary">
+        <span *ngIf="platform.is('ios')">{{'DONE_BUTTON' | translate}}</span>
+        <ion-icon name="checkmark" *ngIf="!platform.is('ios')"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form *ngIf="form" name="form" [formGroup]="form" (ngSubmit)="save()">
+    <ion-list>
+      <ion-item [hidden]="!form.id">
+        <ion-label>ID</ion-label>
+        <ion-input type="hidden" id="id" formControlName="id" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">State</ion-label>
+        <ion-input type="text" name="state" formControlName="state"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Units</ion-label>
+        <ion-input type="text" name="units" formControlName="units"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">District</ion-label>
+        <ion-input type="text" name="district" formControlName="district"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Square</ion-label>
+        <ion-input type="text" name="square" formControlName="square"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Real Estate Number</ion-label>
+        <ion-input type="text" name="realEstateNumber" formControlName="realEstateNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Activity Number</ion-label>
+        <ion-input type="text" name="activityNumber" formControlName="activityNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Area Of The Real Estate</ion-label>
+        <ion-input type="text" name="areaOfTheRealEstate" formControlName="areaOfTheRealEstate"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Customer</ion-label>
+        <ion-select id="field_customer" formControlName="customer" [compareWith]="compareCustomer">
+          <ion-select-option [value]="null"></ion-select-option>
+          <ion-select-option [value]="customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById"
+            >{{customerOption.phoneNumber}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

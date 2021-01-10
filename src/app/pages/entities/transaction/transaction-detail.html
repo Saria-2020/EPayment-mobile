@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Transaction
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="fixed">Name</ion-label>
+      <div item-content>
+        <span>{{transaction.name}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Uuid</ion-label>
+      <div item-content>
+        <span>{{transaction.uuid}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Amount</ion-label>
+      <div item-content>
+        <span>{{transaction.amount}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Date Time</ion-label>
+      <div item-content>
+        <span>{{transaction.dateTime | date:'medium'}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Payment Details</ion-label>
+      <div item-content>
+        <span>{{transaction.paymentDetails}}</span>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>Payment Info</ion-label>
+      <div item-content *ngIf="transaction.paymentInfo">
+        <a>{{transaction.paymentInfo?.name}}</a>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="primary" (click)="open(transaction)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+  <ion-button expand="block" color="danger" (click)="deleteModal(transaction)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+</ion-content>
