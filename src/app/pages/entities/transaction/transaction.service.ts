@@ -6,6 +6,7 @@ import { createRequestOption } from 'src/app/shared';
 import { Transaction } from './transaction.model';
 import { Invoice } from '../invoice';
 import { PaymentInfo } from '../payment-info';
+import { TransactionDOT } from '../invoice/payment-page/transactionDTO';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
@@ -33,7 +34,12 @@ export class TransactionService {
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-  makePayment(invoice: Invoice, paymentInfo: PaymentInfo): Observable<HttpResponse<Transaction>> {
-    return this.http.post<any>(ApiService.API_URL + '/make-payment', { invoice, paymentInfo })
+  makePayment(transactonDto: TransactionDOT): Observable<HttpResponse<Transaction>> {
+
+
+
+    return this.http.post<any>(ApiService.API_URL + '/make-payment', transactonDto, {
+      observe: 'body'
+    })
   }
 }

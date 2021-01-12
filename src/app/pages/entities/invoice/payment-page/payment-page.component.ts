@@ -6,6 +6,7 @@ import { Customer } from '../../customer';
 import { PaymentInfo, PaymentInfoService } from '../../payment-info';
 import { TransactionService } from '../../transaction';
 import { Invoice } from '../invoice.model';
+import { TransactionDOT } from './transactionDTO';
 
 @Component({
   selector: 'app-payment-page',
@@ -51,10 +52,15 @@ export class PaymentPageComponent implements OnInit {
     })
   }
   save() {
-    console.log(this.form.value);
-    console.log(this.invoice);
+    const paymentInfo: PaymentInfo = this.form.value.paymentInfo
+    let data: TransactionDOT = new TransactionDOT(paymentInfo, this.invoice);
+    // data.paymentInfo = this.form.value;
+    // data.invoice = this.invoice
+    console.log(data);
 
-    this.transactionService.makePayment(this.invoice, this.form.value).subscribe(res => {
+    this.transactionService.makePayment(data).subscribe(res => {
+      console.log(res);
+
       this.onSaveSuccess(res)
     })
 
@@ -65,9 +71,9 @@ export class PaymentPageComponent implements OnInit {
       action = 'created';
     }
     this.isSaving = false;
-    const toast = await this.toastCtrl.create({ message: `Invoice ${action} successfully.`, duration: 2000, position: 'middle' });
+    const toast = await this.toastCtrl.create({ message: `Invoice have  paid  successfully.`, duration: 5000, position: 'middle' });
     toast.present();
-    this.navController.navigateBack('/tabs/entities/invoice');
+    this.navController.navigateBack('/tabs/home');
   }
   comparePaymentInfo(first: PaymentInfo, second: PaymentInfo): boolean {
     return first && first.id && second && second.id ? first.id === second.id : first === second;
