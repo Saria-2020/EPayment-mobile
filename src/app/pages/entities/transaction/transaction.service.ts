@@ -34,10 +34,8 @@ export class TransactionService {
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
   makePayment(transactonDto: TransactionDOT): Observable<HttpResponse<Transaction>> {
-
-
-
     return this.http.post<any>(ApiService.API_URL + '/make-payment', transactonDto, {
       observe: 'body'
     })

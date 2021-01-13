@@ -12,10 +12,11 @@ import { filter, map } from 'rxjs/operators';
 import { TransactionPage } from './transaction';
 import { TransactionUpdatePage } from './transaction-update';
 import { Transaction, TransactionService, TransactionDetailPage } from '.';
+import { InvoiceTransactionComponent } from './invoice-transaction/invoice-transaction.component';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionResolve implements Resolve<Transaction> {
-  constructor(private service: TransactionService) {}
+  constructor(private service: TransactionService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Transaction> {
     const id = route.params.id ? route.params.id : null;
@@ -71,10 +72,21 @@ const routes: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+  {
+    path: ':id/history',
+    component: InvoiceTransactionComponent,
+    resolve: {
+      data: TransactionResolve,
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+    },
+    canActivate: [UserRouteAccessService],
+  },
 ];
 
 @NgModule({
-  declarations: [TransactionPage, TransactionUpdatePage, TransactionDetailPage],
+  declarations: [TransactionPage, TransactionUpdatePage, TransactionDetailPage, InvoiceTransactionComponent],
   imports: [IonicModule, FormsModule, ReactiveFormsModule, CommonModule, TranslateModule, RouterModule.forChild(routes)],
 })
-export class TransactionPageModule {}
+export class TransactionPageModule { }

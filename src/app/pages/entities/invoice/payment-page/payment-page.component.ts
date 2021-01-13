@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -54,15 +55,23 @@ export class PaymentPageComponent implements OnInit {
   save() {
     const paymentInfo: PaymentInfo = this.form.value.paymentInfo
     let data: TransactionDOT = new TransactionDOT(paymentInfo, this.invoice);
-    // data.paymentInfo = this.form.value;
-    // data.invoice = this.invoice
-    console.log(data);
 
     this.transactionService.makePayment(data).subscribe(res => {
       console.log(res);
 
       this.onSaveSuccess(res)
+    }, (err: HttpErrorResponse) => {
+      console.log(err.error);
+      this.onError(err);
+
     })
+
+  }
+
+  async onError(err: HttpErrorResponse) {
+    this.isSaving = false;
+    const toast = await this.toastCtrl.create({ message: err.error.title, duration: 5000, position: 'middle' });
+    toast.present();
 
   }
   async onSaveSuccess(response) {
@@ -73,7 +82,7 @@ export class PaymentPageComponent implements OnInit {
     this.isSaving = false;
     const toast = await this.toastCtrl.create({ message: `Invoice have  paid  successfully.`, duration: 5000, position: 'middle' });
     toast.present();
-    this.navController.navigateBack('/tabs/home');
+    this.navController.navigateBack('/tabs/entities/transaction/' + response.id + '/history');
   }
   comparePaymentInfo(first: PaymentInfo, second: PaymentInfo): boolean {
     return first && first.id && second && second.id ? first.id === second.id : first === second;

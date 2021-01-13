@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { AccountService } from 'src/app/services/auth/account.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Account } from 'src/model/account.model';
@@ -11,12 +11,19 @@ import { Invoice, InvoiceService } from '../entities/invoice';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   account: Account;
   invoices: Invoice[] = [];
-  constructor(public navController: NavController, private accountService: AccountService, private loginService: LoginService, private customerService: CustomerService, private invoiceService: InvoiceService) { }
+  constructor(
+    public navController: NavController,
+    private accountService: AccountService,
+    private loginService: LoginService,
+    private customerService: CustomerService,
+    private invoiceService: InvoiceService,
+    public plt: Platform
+  ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.accountService.identity().then((account) => {
       if (account === null) {
         this.goBackToHomePage();

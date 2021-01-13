@@ -1,0 +1,16 @@
+.status-image {
+  font-size: 6rem;
+  margin-left: -1rem;
+  color: success;
+}
+ion-item {
+  background-color: success;
+  font-size: 1rem;
+}
+ion-list {
+  background: transparent;
+}
+
+.content {
+  background-color: success;
+}

@@ -13,6 +13,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-refresher [disabled]="plt.is('desktop')" slot="fixed" (ionRefresh)="loadAll($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item-sliding *ngFor="let invoice of invoices; trackBy: trackId" #slidingItem>
       <ion-item>
@@ -22,7 +25,7 @@
           <p>{{invoice.verificationNumber}}</p>
           <p>{{invoice.unitName}}</p>
           <p>{{invoice.totalAmount}}</p>
-          <p>{{invoice.amountPaid}}</p>
+          <p>{{invoice.customer.user.firstName}}</p>
         </ion-label>
         <ion-button (click)="view(invoice)">Pay</ion-button>
       </ion-item>

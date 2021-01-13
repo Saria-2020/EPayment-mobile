@@ -1,0 +1,55 @@
+<ion-content color="success">
+    <ion-row>
+        <ion-col size="12">
+            <ion-icon class=" status-image" name="checkmark-circle"> </ion-icon>
+
+
+            <ion-item lines="none" *ngIf="transaction.dateTime">
+                <ion-label>
+                    Date Time
+                </ion-label>
+                <ion-label class="ion-text-wrap">
+                    {{transaction.dateTime | date: 'yyyy/MM/dd hh:mm:ss'}}
+                </ion-label>
+            </ion-item>
+
+
+
+            <ion-item lines="none" *ngIf="transaction.uuid">
+                <ion-label>
+                    UUID
+                </ion-label>
+                <ion-label class="ion-text-wrap" dir="ltr">
+                    {{transaction.uuid}}
+                </ion-label>
+            </ion-item>
+            <ion-item lines="none" *ngIf="transaction.amount">
+                <ion-label>
+                    amount
+                </ion-label>
+                <ion-label class="ion-text-wrap">
+                    {{transaction.amount}}
+                </ion-label>
+            </ion-item>
+
+
+
+
+            <ion-item lines="none" *ngFor="let item of transactionInfo">
+                <ion-label>
+                    {{ item.title | translate }}
+                </ion-label>
+                <ion-label>
+                    {{ item.value }}
+                </ion-label>
+            </ion-item>
+
+
+            <div class="ion-padding ion-text-center">
+                <ion-button (click)="goHome()" fill="outline" shape="round" color="light" type="submit">
+                    {{'OK' | translate}}
+                </ion-button>
+            </div>
+        </ion-col>
+    </ion-row>
+</ion-content>
